@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class Favorites extends Component {
   render() {
     return (
-      <div data-testid="page-Favorites">Favorites</div>
+      <div data-testid="page-favorites">
+        Favoritos
+        <Header />
+      </div>
     );
   }
 }
