@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 
@@ -23,7 +24,8 @@ class ProfileEdit extends Component {
     event.preventDefault();
     const { name, email, description, image } = this.state;
     await updateUser({ name, email, description, image });
-    this.props.history.push('/profile');
+    const { history } = this.props;
+    history.push('/profile');
   };
 
   handleChange = (event) => {
@@ -106,5 +108,11 @@ class ProfileEdit extends Component {
     );
   }
 }
+
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ProfileEdit;
