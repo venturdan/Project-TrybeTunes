@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function MusicCard({ trackName, previewUrl }) {
   return (
-    <div data-testid="music-card">
-      <p>{trackName}</p>
+    <div className="music-card">
+      <h3>{trackName}</h3>
       <audio data-testid="audio-component" src={ previewUrl } controls>
         <track kind="captions" />
         O seu navegador não suporta o elemento
@@ -15,10 +14,5 @@ function MusicCard({ trackName, previewUrl }) {
     </div>
   );
 }
-
-MusicCard.propTypes = {
-  trackName: PropTypes.string.isRequired,
-  previewUrl: PropTypes.string.isRequired,
-};
 
 export default MusicCard;
