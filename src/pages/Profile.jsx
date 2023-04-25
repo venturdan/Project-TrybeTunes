@@ -28,10 +28,10 @@ class Profile extends Component {
         {isLoading && <p>Carregando...</p>}
         {user && (
           <>
-            <img src={user.image} alt={user.name} data-testid="profile-image" />
-            <h2>{user.name}</h2>
-            <p>{user.email}</p>
-            <p>{user.description}</p>
+            <img src={ user.image } alt={ user.name } data-testid="profile-image" />
+            <h2>{ user.name }</h2>
+            <p>{ user.email }</p>
+            <p>{ user.description }</p>
             <Link to="/profile/edit">Editar perfil</Link>
           </>
         )}
