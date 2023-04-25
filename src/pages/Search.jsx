@@ -26,7 +26,7 @@ function Search() {
   const MIN_CHARS = 2;
 
   return (
-    <div>
+    <div data-testid="page-search">
       <Header />
       <form onSubmit={ handleSearch }>
         <label htmlFor="search-artist-input">
