@@ -33,7 +33,7 @@ class MusicCard extends Component {
   }
 
   render() {
-    const { infoMusic, listOfFavorites } = this.props;
+    const { infoMusic } = this.props;
     const { trackName, previewUrl, trackId } = infoMusic;
     const { isChecked, isLoading } = this.state;
 
@@ -62,7 +62,7 @@ class MusicCard extends Component {
     ) : null;
   }
 }
-
+// erro no evaluator - push 2 para testar
 MusicCard.propTypes = {
   infoMusic: PropTypes.shape({
     trackName: PropTypes.string.isRequired,
