@@ -1,45 +1,48 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Header from '../components/Header';
-import musicsAPI from '../services/musicsAPI';
+import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from '../components/Loading';
 
 class Album extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      albumInfo: {},
-      musics: [],
-    };
-  }
+  state = {
+    infoMusics: [],
+    isLoading: true,
+    listOfFavorites: [],
+  };
 
-  componentDidMount() {
-    const { match } = this.props;
-    const albumId = match.params.id;
-    musicsAPI(albumId)
-      .then((response) => {
-        const [albumInfo, ...musics] = response;
-        this.setState({ albumInfo, musics });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const returnApi = await getMusics(id);
+    const favorites = await getFavoriteSongs();
+    this.setState({
+      infoMusics: returnApi,
+      isLoading: false,
+      listOfFavorites: favorites,
+    });
   }
 
   render() {
-    const { albumInfo, musics } = this.state;
+    const { infoMusics, isLoading, listOfFavorites } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <h2 data-testid="artist-name">{albumInfo.artistName}</h2>
-        <h1 data-testid="album-name">{albumInfo.collectionName}</h1>
-        {musics.map((music) => (
-          <MusicCard
-            key={ music.trackId }
-            trackName={ music.trackName }
-            previewUrl={ music.previewUrl }
-          />
-        ))}
+        {isLoading ? <Loading /> : (
+          <>
+            <h1 data-testid="artist-name">{infoMusics[0].artistName}</h1>
+            <h2 data-testid="album-name">{infoMusics[0].collectionName}</h2>
+            <img src={ infoMusics[0].artworkUrl100 } alt="" />
+            {infoMusics.slice(1).map((infoMusic) => (
+              <MusicCard
+                key={ infoMusic.trackId }
+                infoMusic={ infoMusic }
+                listOfFavorites={ listOfFavorites }
+              />
+            ))}
+          </>
+        )}
       </div>
     );
   }
@@ -49,7 +52,7 @@ Album.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
   }).isRequired,
 };
 
