@@ -11,7 +11,7 @@ O projeto foi criado como parte do curso da **Trybe**, com foco em consolidar co
 - Exibição de lista de músicas e detalhes de cada álbum  
 - Marcação e gerenciamento de músicas favoritas  
 - Páginas de perfil e edição de usuário  
-- ⚙️avegação entre páginas via **React Router**
+- Navegação entre páginas via **React Router**
 
 ---
 
